@@ -79,25 +79,31 @@ class DatabaseSeeder extends Seeder
 
         // ===== MASTER COMPANY SAMPLE =====
         $company = Company::firstOrCreate(
-            ['name' => 'PT Era Inovasi Nusantara'],
+            ['name' => 'BSB Village'],
             [
-                'legal_name' => 'PT Era Inovasi Nusantara',
-                'email' => 'hq@erainovasi.com',
-                'phone' => '021-0000000',
-                'address' => 'Jl. Inovasi No. 1',
-                'city' => 'Jakarta',
-                'province' => 'DKI Jakarta',
+                'legal_name' => 'BSB Village Semarang',
+                'email' => 'info@bsbvillage.com',
+                'phone' => '081225566775',
+                'address' => 'Jl. Boulevard Raya BSB Village No. 1, Kel. Bubakan, Kec. Mijen',
+                'city' => 'Kota Semarang',
+                'province' => 'Jawa Tengah',
                 'is_active' => true,
             ]
         );
 
         $branch = Branch::firstOrCreate(
-            ['company_id' => $company->id, 'name' => 'Head Office Jakarta'],
+            ['company_id' => $company->id, 'name' => 'BSB Village Semarang'],
             [
-                'code' => 'HQ',
-                'latitude' => -6.2087634,
-                'longitude' => 106.8455990,
-                'attendance_radius' => 20,
+                'code' => 'BSB-VIL',
+                'address' => 'Jl. Boulevard Raya BSB Village No. 1, Kel. Bubakan, Kec. Mijen',
+                'city' => 'Kota Semarang',
+                'province' => 'Jawa Tengah',
+                'postal_code' => '50212',
+                'latitude' => -7.0877000,
+                'longitude' => 110.3201000,
+                'attendance_radius' => 100,
+                'phone' => '081225566775',
+                'email' => 'info@bsbvillage.com',
                 'is_active' => true,
             ]
         );
