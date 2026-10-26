@@ -2,8 +2,8 @@ package com.jangeby.system.ui.theme
 
 import androidx.compose.ui.graphics.Color
 
-val Primary = Color(0xFF0C768A)
-val PrimaryVariant = Color(0xFF0A6A7C)
+val Primary = Color(0xFF0C3E27)
+val PrimaryVariant = Color(0xFF082C1B)
 val Secondary = Color(0xFFE0E6F0)
 val Background = Color(0xFFF8FAFF)
 val Surface = Color(0xFFFFFFFF)

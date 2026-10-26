@@ -23,6 +23,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.layout.ContentScale
 import coil3.compose.AsyncImage
+import com.jangeby.system.ui.theme.Primary
 import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
@@ -44,7 +45,7 @@ fun LoginScreen(
         }
     }
 
-    val primaryTeal = Color(0xFF007A87)
+    val primaryTeal = Primary
 
     Scaffold(
         containerColor = Color(0xFFF8FAFC)

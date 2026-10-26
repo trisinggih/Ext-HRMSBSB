@@ -181,8 +181,8 @@ fun DashboardScreen(
         }
     }
 
-    val primaryTeal = Color(0xFF007A87)
-    val primaryVariant = Color(0xFF005662)
+    val primaryTeal = com.jangeby.system.ui.theme.Primary
+    val primaryVariant = com.jangeby.system.ui.theme.PrimaryVariant
 
     val menuItems = listOf(
         MenuItem("Presensi", Icons.Default.DateRange, 0, onNavigateToAttendance),

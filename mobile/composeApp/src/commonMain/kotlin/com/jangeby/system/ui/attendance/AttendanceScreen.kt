@@ -386,7 +386,7 @@ fun TodayAttendanceHeader(
         Box(
             modifier = Modifier
                 .fillMaxWidth()
-                .background(Brush.horizontalGradient(listOf(Color(0xFF007A87), Color(0xFF005662))))
+                .background(Brush.horizontalGradient(listOf(Primary, PrimaryVariant)))
                 .padding(20.dp)
         ) {
             Column {
@@ -541,7 +541,7 @@ fun TodayAttendanceHeader(
                         onClick = onClockIn,
                         modifier = Modifier.fillMaxWidth().height(46.dp),
                         shape = RoundedCornerShape(12.dp),
-                        colors = ButtonDefaults.buttonColors(containerColor = Color.White, contentColor = Color(0xFF007A87))
+                        colors = ButtonDefaults.buttonColors(containerColor = Color.White, contentColor = Primary)
                     ) {
                         Icon(Icons.Default.PlayArrow, contentDescription = null, modifier = Modifier.size(20.dp))
                         Spacer(modifier = Modifier.width(8.dp))

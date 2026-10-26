@@ -91,8 +91,8 @@ actual fun MapViewComponent(
             
             val circlePolygon = Polygon(view).apply {
                 points = Polygon.pointsAsCircle(branchPoint, b.radius)
-                fillColor = android.graphics.Color.parseColor("#44008779")
-                strokeColor = android.graphics.Color.parseColor("#FF008779")
+                fillColor = android.graphics.Color.parseColor("#440C3E27")
+                strokeColor = android.graphics.Color.parseColor("#FF0C3E27")
                 strokeWidth = 4f
             }
             view.overlays.add(circlePolygon)
