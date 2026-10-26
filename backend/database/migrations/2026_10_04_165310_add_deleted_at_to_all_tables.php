@@ -13,10 +13,10 @@ return new class extends Migration
         $exclude = ['migrations', 'password_reset_tokens', 'personal_access_tokens', 'failed_jobs', 'sessions'];
 
         foreach ($tables as $table) {
-            if (strpos($table, '.') !== false) continue;
-            if (!in_array($table, $exclude)) {
-                if (!Schema::hasColumn($table, 'deleted_at')) {
-                    Schema::table($table, function (Blueprint $table) {
+            $tableName = strpos($table, '.') !== false ? substr($table, strpos($table, '.') + 1) : $table;
+            if (!in_array($tableName, $exclude)) {
+                if (!Schema::hasColumn($tableName, 'deleted_at')) {
+                    Schema::table($tableName, function (Blueprint $table) {
                         $table->softDeletes();
                     });
                 }
