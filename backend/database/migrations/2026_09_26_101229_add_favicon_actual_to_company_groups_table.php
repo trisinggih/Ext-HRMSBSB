@@ -11,9 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('company_groups', function (Blueprint $table) {
-            $table->string('favicon')->nullable()->after('logo');
-        });
+        if (!Schema::hasColumn('company_groups', 'favicon')) {
+            Schema::table('company_groups', function (Blueprint $table) {
+                $table->string('favicon')->nullable()->after('logo');
+            });
+        }
     }
 
     /**
