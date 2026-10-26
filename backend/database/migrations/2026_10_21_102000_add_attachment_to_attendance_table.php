@@ -13,7 +13,11 @@ return new class extends Migration
     {
         if (!Schema::hasColumn('attendance', 'attachment')) {
             Schema::table('attendance', function (Blueprint $table) {
-                $table->string('attachment')->nullable()->after('notes');
+                if (Schema::hasColumn('attendance', 'notes')) {
+                    $table->string('attachment')->nullable()->after('notes');
+                } else {
+                    $table->string('attachment')->nullable();
+                }
             });
         }
     }
