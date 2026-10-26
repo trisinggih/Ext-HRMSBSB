@@ -1,0 +1,166 @@
+@import "tailwindcss";
+
+@theme {
+  --color-primary: #008779;
+  --color-primary-dark: #007468;
+  --color-primary-container: #0fb99f;
+  --color-accent-teal: #2ee5c5;
+  --color-background: #f8fafc;
+  --color-surface: #ffffff;
+
+  --font-display: "Outfit", sans-serif;
+  --font-sans: "Plus Jakarta Sans", sans-serif;
+  --font-mono: "Space Grotesk", monospace;
+}
+
+@layer utilities {
+  .font-display-hero {
+    font-family: "Outfit", sans-serif;
+    font-size: clamp(2.25rem, 5vw, 3.5rem);
+    line-height: 1.15;
+    font-weight: 800;
+    letter-spacing: -0.03em;
+  }
+  .font-headline-lg {
+    font-family: "Outfit", sans-serif;
+    font-size: clamp(1.75rem, 3.5vw, 2.5rem);
+    line-height: 1.2;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+  }
+  .font-headline-md {
+    font-family: "Outfit", sans-serif;
+    font-size: 1.5rem;
+    line-height: 2rem;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+  }
+  .font-headline-sm {
+    font-family: "Outfit", sans-serif;
+    font-size: 1.25rem;
+    line-height: 1.75rem;
+    font-weight: 600;
+  }
+  .font-body-lg {
+    font-family: "Plus Jakarta Sans", sans-serif;
+    font-size: 1.125rem;
+    line-height: 1.75rem;
+  }
+  .font-body-md {
+    font-family: "Plus Jakarta Sans", sans-serif;
+    font-size: 0.9375rem;
+    line-height: 1.5rem;
+  }
+  .font-body-sm {
+    font-family: "Plus Jakarta Sans", sans-serif;
+    font-size: 0.8125rem;
+    line-height: 1.25rem;
+  }
+  .font-tech-data {
+    font-family: "Space Grotesk", sans-serif;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+  }
+  .font-label-mono-sm {
+    font-family: "Space Grotesk", sans-serif;
+    font-size: 0.6875rem;
+    line-height: 0.875rem;
+    letter-spacing: 0.08em;
+    font-weight: 600;
+  }
+  .font-label-mono-lg {
+    font-family: "Space Grotesk", sans-serif;
+    font-size: 0.875rem;
+    line-height: 1.125rem;
+    letter-spacing: 0.06em;
+    font-weight: 600;
+  }
+  .max-w-container-max {
+    max-width: 80rem;
+  }
+  .px-gutter-desktop {
+    padding-left: clamp(1rem, 3vw, 2rem);
+    padding-right: clamp(1rem, 3vw, 2rem);
+  }
+  .py-space-xs {
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+  }
+  .py-space-md {
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+  }
+  .py-space-xl {
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+  }
+  .py-space-2xl {
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+  }
+  .py-space-3xl {
+    padding-top: clamp(2.5rem, 5vw, 4.5rem);
+    padding-bottom: clamp(2.5rem, 5vw, 4.5rem);
+  }
+  .p-space-sm {
+    padding: 0.75rem;
+  }
+  .p-space-md {
+    padding: 1rem;
+  }
+  .p-space-lg {
+    padding: 1.5rem;
+  }
+  .p-space-xl {
+    padding: 2rem;
+  }
+  .p-space-2xl {
+    padding: clamp(1.5rem, 3vw, 3rem);
+  }
+  .gap-space-xxs {
+    gap: 0.25rem;
+  }
+  .gap-space-xs {
+    gap: 0.5rem;
+  }
+  .gap-space-sm {
+    gap: 0.75rem;
+  }
+  .gap-space-md {
+    gap: 1rem;
+  }
+  .gap-space-lg {
+    gap: 1.5rem;
+  }
+  .gap-space-xl {
+    gap: 2rem;
+  }
+  .gap-space-2xl {
+    gap: 3rem;
+  }
+  .mb-space-2xl {
+    margin-bottom: 2.5rem;
+  }
+  .mt-space-md {
+    margin-top: 1rem;
+  }
+  .mt-space-lg {
+    margin-top: 1.5rem;
+  }
+  .mt-space-2xl {
+    margin-top: 2.5rem;
+  }
+  .bg-primary {
+    background-color: #008779;
+  }
+  .text-primary {
+    color: #008779;
+  }
+  .border-primary {
+    border-color: #008779;
+  }
+}
+
+html {
+  scroll-behavior: smooth;
+}

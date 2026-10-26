@@ -1,0 +1,42 @@
+# === Secret & env ===
+.env
+.env.*.local
+!.env.example
+
+# === Backend (Laravel) ===
+/backend/vendor/
+/backend/storage/*.key
+/backend/storage/framework/cache/*
+/backend/storage/framework/sessions/*
+/backend/storage/framework/views/*
+/backend/storage/logs/*
+/backend/.phpunit.result.cache
+/backend/public/build/
+
+# === Web (Vue/Node) ===
+/web/node_modules/
+/web/dist/
+/web/.vite/
+
+# === Mobile (Android/Gradle) ===
+/mobile/.gradle/
+/mobile/build/
+/mobile/**/build/
+/mobile/local.properties
+/mobile/.idea/
+/mobile/*.iml
+/mobile/.kotlin/
+/mobile/captures/
+
+# === Umum ===
+*.log
+.DS_Store
+Thumbs.db
+# === Dumps, Binaries & Scratch ===
+*.sql
+*.apk
+/backend/database/backups/
+/backend/scratch_*.php
+.agents/
+.vscode/
+.idea/

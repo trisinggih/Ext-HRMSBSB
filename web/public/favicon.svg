@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="120" height="120">
+  <defs>
+    <linearGradient id="badgeGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0e4026" />
+      <stop offset="100%" stop-color="#072b1a" />
+    </linearGradient>
+  </defs>
+  <rect width="120" height="120" rx="28" fill="url(#badgeGrad)"/>
+  <g transform="translate(60, 48) scale(0.42)">
+    <path d="M 5 35 C 3 20 -5 -15 -25 -40 C -45 -65 -75 -80 -98 -83 C -70 -72 -45 -45 -33 -15 C -23 10 -15 28 -10 45 Z" fill="#8eb44d" />
+    <path d="M -10 45 C -4 25 8 -10 32 -38 C 53 -63 80 -75 104 -77 C 76 -65 50 -38 36 -6 C 25 20 18 36 14 44 Z" fill="#a6cf5e" />
+    <path d="M -24 40 L 0 88 L 24 40" fill="none" stroke="#ffffff" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+  <text x="60" y="104" font-family="'Tenor Sans', serif" font-size="19" font-weight="600" fill="#ffffff" text-anchor="middle" letter-spacing="2px">BSB</text>
+</svg>

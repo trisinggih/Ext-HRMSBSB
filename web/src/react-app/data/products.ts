@@ -1,0 +1,326 @@
+import { Product } from '../types';
+
+export const PRODUCTS_DATA: Product[] = [
+  {
+    id: 'cvt-spring',
+    name: 'CVT Spring Jangeby',
+    category: 'cvt',
+    categoryLabel: 'TRANSMISI CVT',
+    badge: 'RACING SWOCS-VH',
+    highlight: 'Anti-Fatigue',
+    specLabel: 'Spek: 1000 / 1500 / 2000 RPM',
+    specValue: '100% PRESISI',
+    description:
+      'Menggunakan material SWOCS-VH baja super bersih untuk pegas katup extreme. Menahan kompresi putaran tinggi tanpa kehilangan elastisitas, tahan suhu panas, dan anti karat.',
+    images: [
+      'https://lh3.googleusercontent.com/aida/AEtjO1UbAJ_8qIRAz-fb67zrdgtEsMuss79rYD3aGeo669f_5c-cVgqSioico1OFtLyRh5V3yZipd7KMNikhwuNs4QocbuYJpMuwkxjhdzNdG0pG2jxP4xGwUT430zOU_Uh6qjrfXURubnECV3Gd-Lee5hTGQ63jedF9WT3dUA2ghYQQj0gKAlsh-ArlolAmp88YyZaxZpmsce5VdWbNBa3PXrQnjuG9AFcsaTIUHFD1yv4WW3mQak28hiaaaoU',
+    ],
+    specs: {
+      material: 'Baja SWOCS-VH Grade Valve Racing',
+      rpmOptions: '1000 RPM, 1500 RPM, 2000 RPM',
+      temperatureRange: 'Hingga 220°C Bebas Lelah',
+      finish: 'Anti-Corrosion Black Coat Electrophoresis',
+    },
+    compatibility: [
+      'Honda Vario 125 / 150 / 160',
+      'Honda PCX 150 / 160 / ADV',
+      'Honda Beat FI / ESP / Deluxe / Genio / Scoopy',
+      'Yamaha NMAX 155 Old / New Connected',
+      'Yamaha Aerox 155 Connected',
+      'Yamaha Lexi 125 / 155',
+      'Yamaha Mio M3 / Fazzio / Grand Filano',
+    ],
+    marketplaceLinks: {
+      shopee: 'https://shopee.co.id/jangebyofficial',
+      tokopedia: 'https://www.tokopedia.com/jangeby-store',
+      tiktok: 'https://vt.tiktok.com/ZSY3sTxM4/?page=Mall',
+      whatsapp: 'https://wa.me/6285770201010?text=Halo%20Jangeby,%20saya%20tertarik%20dengan%20CVT%20Spring%20Jangeby',
+    },
+  },
+  {
+    id: 'spring-clutch',
+    name: 'Spring Clutch (Per Sentri)',
+    category: 'cvt',
+    categoryLabel: 'TRANSMISI CVT',
+    badge: 'CLUTCH PERFORMANCE',
+    highlight: 'Akselerasi Bawah',
+    specLabel: 'Varian: 1000 - 2000 RPM',
+    specValue: 'ANTI GREDEK',
+    description:
+      'Tersedia pilihan 1000 RPM, 1200 RPM, 1500 RPM, 1700 RPM, hingga 2000 RPM. Tingkat elastisitas kawat pegas stabil untuk respon akselerasi spontan anti selip.',
+    images: [
+      'https://lh3.googleusercontent.com/aida/AEtjO1UjAL27NOhII-EMxoCelRRYaRPjmhQYPjKwocRg9j0VHpZ5oCp9_RasUNo5Y3K3IugRD7eCkDPY5LwttImovvCqE-vtS520bq0GErjJp20ZQ9YFIYoVImtgfDDzP42wsUbr35dnKKx-wInsmY44zuTIZTtDBg4wLBcMVQCX-kawNbYqrXn-_YAgzu8uKL92ogdPo7d_nEPR9u96MbYt37Y9oc5GHjDAI14wrDkuXMYIgQKEAg0UQuFF4CE',
+    ],
+    specs: {
+      material: 'High-Tensile Carbon Spring Wire',
+      rpmOptions: '1000, 1200, 1500, 1700, 2000 RPM',
+      technology: 'Precision Coil Tension Balance',
+    },
+    compatibility: [
+      'Honda Vario 110 / 125 / 150 / 160',
+      'Honda Beat / Scoopy / Spacy',
+      'Yamaha NMAX / Aerox / Lexi',
+      'Yamaha Mio Sporty / Smile / J / Soul GT',
+    ],
+    marketplaceLinks: {
+      shopee: 'https://shopee.co.id/jangebyofficial',
+      tokopedia: 'https://www.tokopedia.com/jangeby-store',
+      tiktok: 'https://vt.tiktok.com/ZSY3sTxM4/?page=Mall',
+      whatsapp: 'https://wa.me/6285770201010?text=Halo%20Jangeby,%20saya%20tertarik%20dengan%20Spring%20Clutch%20Per%20Sentri',
+    },
+  },
+  {
+    id: 'mangkok-ganda-custom',
+    name: 'Mangkok Ganda Custom Anti Gredek',
+    category: 'cvt',
+    categoryLabel: 'TRANSMISI CVT',
+    badge: 'CNC DRILL & GROOVE',
+    highlight: 'Max Grip',
+    specLabel: 'Tipe: Milling / Kartel / GK2',
+    specValue: '100% BEBAS GETAR',
+    description:
+      'Permukaan presisi dengan opsi tipe Milling, Kartel, dan GK2 yang disesuaikan kebutuhan motor. Membuang debu sentrifugal dan mengoptimalkan gigitan kampas kopling.',
+    images: [
+      'https://lh3.googleusercontent.com/aida/AEtjO1XummzDLApcwF_3pWibns1_iCEZkjLgKR2-n58PNrUybDc2YokAq-iE4FY41qU8299VzSUaRmPToXNHmIsOHh05lWB_4PU-Kzz4w9y9Q7_Omm0xPHeNHUdCs6ZYhzPZ5gp6H36F9uadoov6asuppvVTjCkdYnV-pTqto2PXSKohiKw71fk9hUMz1klLCzfW8p7VAmYbhkxLPKDY0P6dGDgpBgrCTqb2ekkHx7A23YE4vVn0BkjBd2jLfMU',
+    ],
+    specs: {
+      finish: 'CNC Precision Lathe & Grooving Channel',
+      technology: 'Airflow Centrifugal Dust Ejection Holes',
+      rpmOptions: 'Milling Harian / Kartel Balap / GK2 Hybrid',
+    },
+    compatibility: [
+      'Honda Beat FI / ESP / Deluxe / Genio',
+      'Honda Vario 125 / 150 / 160',
+      'Honda PCX 150 / 160 / ADV 150 / 160',
+      'Yamaha NMAX 155 / Aerox 155 / Lexi',
+      'Yamaha Mio M3 / Fino 125 / Soul GT',
+    ],
+    marketplaceLinks: {
+      shopee: 'https://shopee.co.id/jangebyofficial',
+      tokopedia: 'https://www.tokopedia.com/jangeby-store',
+      tiktok: 'https://vt.tiktok.com/ZSY3sTxM4/?page=Mall',
+      whatsapp: 'https://wa.me/6285770201010?text=Halo%20Jangeby,%20saya%20tertarik%20dengan%20Mangkok%20Ganda%20Custom',
+    },
+  },
+  {
+    id: 'kampas-ganda-kevlar',
+    name: 'Kampas Ganda Kevlar Serat Aramid',
+    category: 'cvt',
+    categoryLabel: 'TRANSMISI CVT',
+    badge: 'ARAMID FIBER',
+    highlight: 'Anti-Slip Formula',
+    specLabel: 'Bahan: Kevlar Aramid Asli',
+    specValue: 'TAHAN PANAS',
+    description:
+      'Tahan panas superior dan gesekan tinggi tanpa mengikis mangkok kopling. Formulasi kepadatan disesuaikan lebih lembut dari kampas racing murni agar sangat awet harian.',
+    images: [
+      'https://lh3.googleusercontent.com/aida/AEtjO1WYRlHJeBOXjR5xb3LrL6bpKSFJR-gAQ09jIu53CZKWCBJCZlVuJCA13-9RPh1mJC-24j4-VEOlN3S-C54_oZklCWnwjRiyqkhPpzqNPH5Qc_WrQ2uvRWfPk2i7Mgwi4ZGOy9Mj5z4pwcP22I1VtXQHudjuKa9tgLMnhD9IL-sJsQoYEpxaOIugSECwXI6i7GCNkorTbudlYsYG-pxn240lS2LmV2cIHm-ImbiLTXXZWPZ1izJyGoQuk_4',
+    ],
+    specs: {
+      material: 'Genuine DuPont Kevlar Aramid Friction Compound',
+      temperatureRange: 'Tahan hingga 300°C bebas fading',
+      technology: 'Smooth Engagement Matrix Formula',
+    },
+    compatibility: [
+      'Honda Vario 125 / 150 / 160',
+      'Honda Beat / Scoopy Karbu & FI',
+      'Yamaha NMAX / Aerox / Lexi',
+      'Yamaha Mio / Soul GT / Fazzio',
+    ],
+    marketplaceLinks: {
+      shopee: 'https://shopee.co.id/jangebyofficial',
+      tokopedia: 'https://www.tokopedia.com/jangeby-store',
+      tiktok: 'https://vt.tiktok.com/ZSY3sTxM4/?page=Mall',
+      whatsapp: 'https://wa.me/6285770201010?text=Halo%20Jangeby,%20saya%20tertarik%20dengan%20Kampas%20Ganda%20Kevlar',
+    },
+  },
+  {
+    id: 'drive-belt-epdm',
+    name: 'Drive Belt Jangeby High Performance',
+    category: 'cvt',
+    categoryLabel: 'TRANSMISI CVT',
+    badge: 'EPDM RUBBER & MOTA',
+    highlight: 'Heavy Duty',
+    specLabel: 'Suhu: -40°C s/d 150°C',
+    specValue: 'EKSTREM AWET',
+    description:
+      'Konstruksi 3 lapis: Kain Mota tahan gesek, Kawat Poliester elastisitas tinggi, dan Karet EPDM tahan suhu ekstrem -40°C hingga 150°C. Akselerasi halus bebas selip.',
+    images: [
+      'https://lh3.googleusercontent.com/aida/AEtjO1VEUzZ_uxkWC6qNwn_eq-Ern-02_6fTyQKOiWW0371WlHqSnygevK2603XDsn6I6OyhyygwSu0E5Cz7IpS1G3XkCYFG76P3DX7fNG0I2IWFxdLIvF7k8uwB9923WVF8HM6aYKoMK5Z4BltaqieOuvRf0TapR4DeGsdy8_I7E60QPNJKmWDFMaxHoGufG_SwDqAAMA_DvZzXnBLD36l1cbnp5vKTc4cyROuLOWAPxNEkm9SkTtsY46vGbpc',
+    ],
+    specs: {
+      material: 'Triple-Layer Compound: Mota Fabric + High-Cord + EPDM',
+      temperatureRange: '-40°C s/d 150°C',
+      technology: 'Zero Stretch Tensile Integrity',
+    },
+    compatibility: [
+      'Honda Vario 125 Old & New / Vario 150 / Vario 160',
+      'Honda Beat FI / ESP / Street / Genio',
+      'Yamaha NMAX 155 Old / New, Aerox 155',
+      'Yamaha Mio J / Soul GT / Mio M3 125',
+    ],
+    marketplaceLinks: {
+      shopee: 'https://shopee.co.id/jangebyofficial',
+      tokopedia: 'https://www.tokopedia.com/jangeby-store',
+      tiktok: 'https://vt.tiktok.com/ZSY3sTxM4/?page=Mall',
+      whatsapp: 'https://wa.me/6285770201010?text=Halo%20Jangeby,%20saya%20tertarik%20dengan%20Drive%20Belt%20Jangeby',
+    },
+  },
+  {
+    id: 'roller-teflon-pom',
+    name: 'High Quality Roller Teflon',
+    category: 'cvt',
+    categoryLabel: 'TRANSMISI CVT',
+    badge: 'TEFLON POM',
+    highlight: 'Low Friction',
+    specLabel: 'Gramatur: 7g s/d 15g Lengkap',
+    specValue: 'HEMAT BBM',
+    description:
+      'Dibuat dari material Poly Oxy Methylene (POM) teflon licin dan kuat. Mengurangi keausan jalur roller pada pulley, akselerasi motor bergulir cepat tanpa hambatan energi.',
+    images: [
+      'https://lh3.googleusercontent.com/aida/AEtjO1U7SdTNHZ9ow8tMR7ZUy3F9w2VUVMY9h4BDDNNtjV4HHsTtEfFqMAoInHZ4NwGUjpQzDP778JbHRAtPiZTfgtR0VOORFi06M6OI-iTVtQFxRxQNCaxD7qMa7TWwNQAJNr9ywZ0d4LBtOkynic-RIyt-uEhSifghTqkeSfAdcSdAFx9zVJnF1lfOXxu7-4Fu_qxX61KDt0-nHbDDywPjX7V1efYqoIp9Az9dArWN3Cs1z_w6U9d83v8Ak8M',
+    ],
+    specs: {
+      material: '100% Virgin PolyOxyMethylene (POM) Low Friction Resin',
+      weightOptions: '7g, 8g, 9g, 10g, 11g, 12g, 13g, 14g, 15g (Ready All)',
+      technology: 'Self-Lubricated High Velocity Rolling Core',
+    },
+    compatibility: [
+      'Honda Vario 125 / 150 / 160, PCX 150 / 160, ADV',
+      'Honda Beat / Scoopy / Genio',
+      'Yamaha NMAX 155, Aerox 155, Lexi',
+      'Yamaha Mio Karbu & FI / Fazzio',
+    ],
+    marketplaceLinks: {
+      shopee: 'https://shopee.co.id/jangebyofficial',
+      tokopedia: 'https://www.tokopedia.com/jangeby-store',
+      tiktok: 'https://vt.tiktok.com/ZSY3sTxM4/?page=Mall',
+      whatsapp: 'https://wa.me/6285770201010?text=Halo%20Jangeby,%20saya%20tertarik%20dengan%20Roller%20Teflon%20POM',
+    },
+  },
+  {
+    id: 'titanium-bushing',
+    name: 'Titanium Bushing Pulley',
+    category: 'cvt',
+    categoryLabel: 'TRANSMISI CVT',
+    badge: 'TITANIUM ALLOY',
+    highlight: 'Ultra Lightweight',
+    specLabel: 'Karakter: Ringan & Presisi',
+    specValue: 'ROTASI CEPAT',
+    description:
+      'Material Titanium Alloy berbobot ultra-ringan dengan kekerasan tinggi. Mengurangi beban rotasi as kruk sehingga RPM mesin naik drastis dengan respons instan.',
+    images: [
+      'https://lh3.googleusercontent.com/aida/AEtjO1W4JtLy5y81ZAzWIhbnGxfFG9KcwCKeBgdyFze-4d9Tv-F7B8rjDHim2MdwDL9FqCMvTAeNEg747ppDCe7CIcM9LYSHJjuMaG-0ee3sLVVf4fjPdP_X-sJg--vmG0Hialpavj1IuefsCPC7mW2y-9sC8XjtVWhYWbmb1gLygE-kEm6e1Iyl2svh27tgsfw8Wzwrz6aL-ys9lLHeh9NFlZAJkZKeg9npS9ofkKcxYw45MmECsrHgBxkNTbs',
+    ],
+    specs: {
+      material: 'Aerospace Grade Ti-6Al-4V Titanium Alloy',
+      technology: 'Mirror Polish Low-Drag Micro-Machined ID/OD',
+      finish: 'Micro-Finish Hard Anodized',
+    },
+    compatibility: [
+      'Honda Vario 125 / 150 / 160',
+      'Honda PCX 150 / 160 / ADV',
+      'Yamaha NMAX 155 / Aerox 155',
+    ],
+    marketplaceLinks: {
+      shopee: 'https://shopee.co.id/jangebyofficial',
+      tokopedia: 'https://www.tokopedia.com/jangeby-store',
+      tiktok: 'https://vt.tiktok.com/ZSY3sTxM4/?page=Mall',
+      whatsapp: 'https://wa.me/6285770201010?text=Halo%20Jangeby,%20saya%20tertarik%20dengan%20Titanium%20Bushing%20Pulley',
+    },
+  },
+  {
+    id: 'sliding-plate-slide-piece',
+    name: 'Sliding Plate & Slide Piece S3',
+    category: 'cvt',
+    categoryLabel: 'TRANSMISI CVT',
+    badge: 'DUAL COMPONENT',
+    highlight: 'Self Lubricating',
+    specLabel: 'Material: PA46 Teflon Self-Lube',
+    specValue: 'SMOOTH TRAVEL',
+    description:
+      'Sliding Plate berfinishing halus dari pabrik dipadu Slide Piece material PA46 teflon self-lubricating. Menjaga kestabilan ramp pulley dan melipatgandakan umur roller.',
+    images: [
+      'https://lh3.googleusercontent.com/aida/AEtjO1U_ZmXDKnciv3Ar8eY3ISBpWphZHmqC1zrXtjDFVnVWuZAM_3HRjD59k_3uGwsdkgY7_23fVkx2Y5eAIFHoKgruC_dKtNyTHs0XvADE3fA4UrHrgcLKH-L37b9i-_5PlnFZ_0o8SQBiU_J34kzNswYxHZ2umgQaJYDmMdUeezO9iCW8IGSj--4PTnkbvClB5k4UljjqjTXaGMNbYLDE7bM9aX5TsQj8wWd79-cZugOIFLS8Bc-AHyQMpg',
+      'https://lh3.googleusercontent.com/aida/AEtjO1X6_ZSLpsRiYI7r5KRaEyCkLBfb0GKhNaLJNvcpzsA70o8S517GuLGkPYLoKGg69vgU-at9dfPnUBlbBwIACW2LuPHGiInB1gw2Kt7NyBx0ifil6i9mlQxlOvDVe0p_wgyb4piMY_zRyeiKdR536DtSyrvSJvXkk-lz-hKLmIcTE8adLNsLk-PV5qf1cMKXAtytyT1oVOhQQWnfL950L5jLsGXJd_25e-RIvOLBRjHpWPOy8-YFYYUChA',
+    ],
+    specs: {
+      material: 'Heavy-Duty Stamped Fine Steel + PA46 Nylon Matrix',
+      technology: 'Zero Friction Ramp Guide Surface',
+    },
+    compatibility: [
+      'Honda Beat FI / ESP / Beat Deluxe / Scoopy',
+      'Honda Vario 125 / 150 / 160 / PCX 150 / 160',
+      'Yamaha NMAX / Aerox / Lexi 155',
+    ],
+    marketplaceLinks: {
+      shopee: 'https://shopee.co.id/jangebyofficial',
+      tokopedia: 'https://www.tokopedia.com/jangeby-store',
+      tiktok: 'https://vt.tiktok.com/ZSY3sTxM4/?page=Mall',
+      whatsapp: 'https://wa.me/6285770201010?text=Halo%20Jangeby,%20saya%20tertarik%20dengan%20Sliding%20Plate%20dan%20Slide%20Piece',
+    },
+  },
+  {
+    id: 'injector-n21-sensor-tps',
+    name: 'Injector N21 & Sensor TPS M1',
+    category: 'engine',
+    categoryLabel: 'SENSOR & MESIN',
+    badge: 'FUEL & SENSOR',
+    highlight: 'Micro-Atomization',
+    specLabel: 'Teknologi: German Chipset',
+    specValue: 'PRESISI TINGGI',
+    description:
+      'Pengabutan kabut mikro konsisten sempurna untuk pembakaran efisien bertenaga. Didukung sensor TPS M1 berteknologi chip presisi tinggi anti eror pada bukaan throttle gas.',
+    images: [
+      'https://lh3.googleusercontent.com/aida/AEtjO1WxGzOATpORI-IIyvxnfIKKsRzPGOG6EUM35J0bsQl9qmmVaQ_rEiIG-7Dv8Q59DRM-5GtnYs-4b-Ae8i-GkS7CLbOKN12JTXxSQakdtS50PlXW_D_V7yhiBiToosPWDYF8qzwTzn3h_4UQP0XCBbmGq0TlZMjtKsR-t5NFTA9W1KmouBEB825Vx6fNot5X7o6foxDMfKkbSKjH2ny-tOrIW8jjtvy74ParH4XWctT0Ty7xQtKDgXGCiJk',
+      'https://lh3.googleusercontent.com/aida/AEtjO1UVMmae3Qm6iJm5jyPSYDvk65u92qf7eUSRYJF3ZqW2nmgzVtjSiZhgHA3og9y6zv74QhZ7vC1U_TwwgjYPnAbXY5MB--XLyONxOCI_iEKCMZsQ-2-CY4VFzaDfQgDU6EUoZPk6u9j3GgEBCN_TvfncggjKhSnylftopRYoI-snAnwVXmYn1SfzMlBwlFzouoeU75Mn-JFzfnu8epTDfpcrAcUT2iUVW9NU2Ln4ZUaQNmrC5kNTe8C8DE',
+    ],
+    specs: {
+      flowRateOptions: '120cc, 140cc, 160cc, 180cc, 200cc',
+      technology: 'Laser Micro-Drilled 10-12 Hole Spray Pattern',
+      chipset: 'High-Speed German Automotive Hall Sensor',
+    },
+    compatibility: [
+      'Honda Beat FI / Scoopy / Vario 125 / Vario 150 / CRF 150L',
+      'Yamaha NMAX 155 / Aerox 155 / WR 155 / R15 V3 V4',
+      'Universal ECU Compatible (BRT, Juken, Apitech, OEM)',
+    ],
+    marketplaceLinks: {
+      shopee: 'https://shopee.co.id/jangebyofficial',
+      tokopedia: 'https://www.tokopedia.com/jangeby-store',
+      tiktok: 'https://vt.tiktok.com/ZSY3sTxM4/?page=Mall',
+      whatsapp: 'https://wa.me/6285770201010?text=Halo%20Jangeby,%20saya%20tertarik%20dengan%20Injector%20N21%20dan%20Sensor%20TPS',
+    },
+  },
+  {
+    id: 'komstir-water-pump',
+    name: 'Soft Steering Ball & Water Pump S13',
+    category: 'handling',
+    categoryLabel: 'HANDLING & SASIS',
+    badge: 'HANDLING & COOLING',
+    highlight: 'Soft Control',
+    specLabel: 'Fitur: Bearing Cage & Impeller',
+    specValue: 'ANTI OVERHEAT',
+    description:
+      'Komstir bantalan pelor presisi cage teflon anti oblak untuk stang kemudi super lincah, serta water pump pendingin sirkulasi cairan debit tinggi anti panas mesin.',
+    images: [
+      'https://lh3.googleusercontent.com/aida/AEtjO1XAv8L2m5xyLeLZiGkqmfDL-W6Z1fQxHeQQwbo2L5UbhItuWOh9scn3r1CyDpHS5Y1nNvpdgEPcd99xRuQyRq_a5yLVo5Uzp_uqPYt_9q5YMbPtwgfhokI6ANxGla7qg-Ym823p6s6m9s86YFeCf4E89ztjnHPYzi9AwreE0J4rOCWr9knYIWDaJDCGuDjX--2dQTZCngC226rft8Bywu_1gFzuA7HBN5GLZanC8WAVmTWmS5XTjMxAiqs',
+      'https://lh3.googleusercontent.com/aida/AEtjO1V1pZsK75Iwggy5aVujYYA1itJTFb8mJOjU-P1E-gg3GMwr6tvnVZ01okgvZefqblLRaKhHYG7ErUIp5CH-TDKiPJiLXtuxsotNBEo7koWLuj6BTWPzlWZ1soC284M3_NnqxuTY7r-X3tYWwcPURiN5A3pykWeWRY0Aqzvku3ax-wXcxs3f6cbnRQTkGYo1qglgMI4X1ITDfAZVnsJ3sxGltqMqO3dkc0HClQQe5aG7ql_bYF8yO0TMzQ',
+    ],
+    specs: {
+      bearingType: 'High-Impact Chrome Steel Balls in Teflon Cage',
+      waterPumpImpeller: 'High-Flow Curved Turbine CNC Machined',
+      technology: 'Anti-Vibration Steering Stability Guarantee',
+    },
+    compatibility: [
+      'Honda Vario 125 / 150 / 160, PCX 150 / 160, Beat, Scoopy',
+      'Yamaha NMAX 155, Aerox 155, Lexi, Jupiter MX, MX King',
+    ],
+    marketplaceLinks: {
+      shopee: 'https://shopee.co.id/jangebyofficial',
+      tokopedia: 'https://www.tokopedia.com/jangeby-store',
+      tiktok: 'https://vt.tiktok.com/ZSY3sTxM4/?page=Mall',
+      whatsapp: 'https://wa.me/6285770201010?text=Halo%20Jangeby,%20saya%20tertarik%20dengan%20Komstir%20dan%20Water%20Pump%20S13',
+    },
+  },
+];

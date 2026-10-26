@@ -1,0 +1,6 @@
+{
+  "name": "Jangeby Performance Parts",
+  "description": "Katalog resmi komponen transmisi CVT, suku cadang balap dan harian motor matic berpresisi tinggi Jangeby Official.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

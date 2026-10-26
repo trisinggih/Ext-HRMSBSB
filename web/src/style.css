@@ -1,0 +1,360 @@
+/* Ext-HRMS - Custom Styles (menggunakan Tocly Bootstrap template) */
+
+/* Pastikan #app mengisi seluruh halaman */
+#app {
+  min-height: 100vh;
+}
+
+/* Router-link active state untuk sidebar MetisMenu */
+.metismenu a.router-link-active,
+.metismenu a.router-link-exact-active {
+  color: #fff !important;
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Fix untuk router-link di dalam sub-menu */
+.sub-menu a.router-link-active,
+.sub-menu a.router-link-exact-active {
+  color: #fff !important;
+  font-weight: 600;
+}
+
+/* Animasi loading spinner untuk tombol */
+@keyframes mdi-spin {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.mdi-spin {
+  animation: mdi-spin 1s linear infinite;
+}
+
+/* Custom scrollbar untuk konten utama */
+.main-content {
+  scrollbar-width: thin;
+}
+
+/* Adjust horizontal padding for horizontal layout */
+body[data-layout=horizontal] .page-content {
+  padding-left: 15px !important;
+  padding-right: 15px !important;
+}
+
+/* Global Primary Color Override - BSB Village Forest Emerald */
+:root {
+  --bs-primary: #124d32;
+  --bs-primary-rgb: 18, 77, 50;
+  --bs-accent: #7a9544;
+}
+
+.text-primary {
+  color: var(--bs-primary) !important;
+}
+
+.bg-primary {
+  background-color: var(--bs-primary) !important;
+}
+
+.btn-primary {
+  background-color: var(--bs-primary) !important;
+  border-color: var(--bs-primary) !important;
+}
+
+/* Custom Table thead background color - FLAT COLOR (no gradient) */
+.table thead th,
+table thead th,
+thead th,
+.custom-thead-gradient th,
+thead.custom-thead-gradient th {
+  background: #0f3e28 !important;
+  background-image: none !important;
+  color: #ffffff !important;
+  border-bottom: 0 !important;
+}
+
+/* Custom color for fixed/sticky headers (flat color) */
+.table thead th[style*="sticky"],
+table thead th[style*="sticky"],
+thead th[style*="sticky"] {
+  background: #0a2d1d !important;
+  background-image: none !important;
+  color: #ffffff !important;
+}
+
+/* Topbar & Header - BSB Village Real Estate Aesthetic */
+[data-topbar=colored] #page-topbar {
+  background-color: #0c3e27 !important;
+  border-bottom: 1px solid rgba(122, 149, 68, 0.25) !important;
+}
+
+[data-topbar=colored] .page-title-box .page-title {
+  color: #f1f5f2 !important;
+  font-weight: 600;
+}
+
+.topnav .navbar-nav .nav-link.active,
+.topnav .navbar-nav .nav-link:hover {
+  color: #124d32 !important;
+}
+
+.topnav .navbar-nav .nav-link.active::after {
+  background-color: #124d32 !important;
+}
+
+
+.navbar-header {
+  height: 60px;
+  padding: 0 calc(20px / 2) 0 calc(20px / 2);
+}
+
+.topnav {
+  margin-top: 60px !important;
+}
+
+.topnav .navbar-nav .nav-link {
+  font-size: 13.5px;
+}
+
+/* Hide all placeholders globally */
+::placeholder {
+  color: transparent !important;
+  opacity: 0 !important;
+}
+
+:-ms-input-placeholder {
+  color: transparent !important;
+}
+
+::-ms-input-placeholder {
+  color: transparent !important;
+}
+
+/* Hide multiselect placeholder variables */
+:root {
+  --ms-placeholder-color: transparent !important;
+}
+
+/* ============================================================
+   UNIFIED BUTTON DESIGN SYSTEM (Serasi, Harmonis, Modern)
+   ============================================================ */
+
+/* Base transition and alignment for all buttons */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem;
+  font-weight: 500;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.btn:hover {
+  transform: translateY(-1px);
+}
+
+.btn:active {
+  transform: translateY(0);
+}
+
+/* Primary buttons (+ Tambah, Simpan, Submit) */
+.btn-primary,
+.btn-action-add {
+  background: linear-gradient(135deg, var(--bs-primary, #124d32) 0%, #1c6845 100%) !important;
+  border: 1px solid transparent !important;
+  color: #ffffff !important;
+  border-radius: 7px !important;
+  box-shadow: 0 2px 8px rgba(18, 77, 50, 0.22);
+}
+
+.btn-primary:hover,
+.btn-action-add:hover {
+  background: linear-gradient(135deg, #0d3d27 0%, #155537 100%) !important;
+  color: #ffffff !important;
+  box-shadow: 0 4px 14px rgba(18, 77, 50, 0.35);
+  transform: translateY(-1px);
+}
+
+.btn-primary:disabled,
+.btn-action-add:disabled {
+  opacity: 0.65 !important;
+  transform: none !important;
+  box-shadow: none !important;
+}
+
+/* ============================================================
+   TABLE & ACTION BAR ACTION BUTTONS
+   (Detail, Edit, Hapus, Success, Secondary)
+   ============================================================ */
+
+/* Common shape for action buttons */
+.btn-action-view,
+.btn-action-detail,
+.btn-action-edit,
+.btn-action-delete,
+.btn-action-success,
+.btn-action-secondary,
+.table td .btn,
+.table td .btn-sm {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.3rem;
+  padding: 0.28rem 0.65rem;
+  font-size: 0.78rem;
+  font-weight: 500;
+  line-height: 1.4;
+  border-radius: 6px;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: all 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.btn-action-detail:hover,
+.btn-action-edit:hover,
+.btn-action-delete:hover,
+.btn-action-success:hover,
+.btn-action-secondary:hover,
+.table td .btn:hover {
+  transform: translateY(-1px);
+}
+
+/* DETAIL & VIEW (Soft Cyan / Sky) */
+.btn-action-view,
+.btn-action-detail,
+.table td .btn-info,
+.table td .btn-outline-info {
+  background-color: #f0f9ff !important;
+  color: #0284c7 !important;
+  border: 1px solid #bae6fd !important;
+}
+
+.btn-action-view:hover,
+.btn-action-detail:hover,
+.table td .btn-info:hover,
+.table td .btn-outline-info:hover {
+  background-color: #0284c7 !important;
+  color: #ffffff !important;
+  border-color: #0284c7 !important;
+  box-shadow: 0 3px 8px rgba(2, 132, 199, 0.28);
+}
+
+/* EDIT (Soft Amber / Orange) */
+.btn-action-edit,
+.table td .btn-warning,
+.table td .btn-outline-warning {
+  background-color: #fffbeb !important;
+  color: #d97706 !important;
+  border: 1px solid #fde68a !important;
+}
+
+.btn-action-edit:hover,
+.table td .btn-warning:hover,
+.table td .btn-outline-warning:hover {
+  background-color: #d97706 !important;
+  color: #ffffff !important;
+  border-color: #d97706 !important;
+  box-shadow: 0 3px 8px rgba(217, 119, 6, 0.28);
+}
+
+/* HAPUS / DELETE (Soft Crimson / Red) */
+.btn-action-delete,
+.table td .btn-danger,
+.table td .btn-outline-danger {
+  background-color: #fef2f2 !important;
+  color: #dc2626 !important;
+  border: 1px solid #fecaca !important;
+}
+
+.btn-action-delete:hover,
+.table td .btn-danger:hover,
+.table td .btn-outline-danger:hover {
+  background-color: #dc2626 !important;
+  color: #ffffff !important;
+  border-color: #dc2626 !important;
+  box-shadow: 0 3px 8px rgba(220, 38, 38, 0.28);
+}
+
+/* ATTACHMENT / SURAT (Soft Purple / Magenta) */
+.btn-action-attachment {
+  background-color: #fdf2f8 !important;
+  color: #c026d3 !important;
+  border: 1px solid #f5d0fe !important;
+}
+
+.btn-action-attachment:hover {
+  background-color: #c026d3 !important;
+  color: #ffffff !important;
+  border-color: #c026d3 !important;
+  box-shadow: 0 3px 8px rgba(192, 38, 211, 0.28);
+}
+
+/* SUCCESS / APPROVE (Soft Emerald / Green) */
+.btn-action-success,
+.table td .btn-success,
+.table td .btn-outline-success {
+  background-color: #f0fdf4 !important;
+  color: #16a34a !important;
+  border: 1px solid #bbf7d0 !important;
+}
+
+.btn-action-success:hover,
+.table td .btn-success:hover,
+.table td .btn-outline-success:hover {
+  background-color: #16a34a !important;
+  color: #ffffff !important;
+  border-color: #16a34a !important;
+  box-shadow: 0 3px 8px rgba(22, 163, 74, 0.28);
+}
+
+/* SECONDARY / NEUTRAL (Soft Slate) */
+.btn-action-secondary,
+.table td .btn-secondary,
+.table td .btn-outline-secondary {
+  background-color: #f8fafc !important;
+  color: #475569 !important;
+  border: 1px solid #e2e8f0 !important;
+}
+
+.btn-action-secondary:hover,
+.table td .btn-secondary:hover,
+.table td .btn-outline-secondary:hover {
+  background-color: #e2e8f0 !important;
+  color: #1e293b !important;
+  border-color: #cbd5e1 !important;
+}
+
+/* Global btn-sm formatting */
+.btn-sm {
+  padding: 0.28rem 0.65rem !important;
+  font-size: 0.78rem !important;
+  border-radius: 6px !important;
+}
+
+/* Back button (.btn-back) */
+.btn-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.4rem 0.9rem;
+  font-size: 0.825rem;
+  font-weight: 500;
+  border-radius: 7px;
+  background-color: #ffffff;
+  color: #475569;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.btn-back:hover {
+  background-color: #f8fafc;
+  color: #1e293b;
+  border-color: #cbd5e1;
+  transform: translateX(-2px);
+}

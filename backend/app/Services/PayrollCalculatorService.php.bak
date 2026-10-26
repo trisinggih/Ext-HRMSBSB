@@ -1,0 +1,426 @@
+<?php
+
+namespace App\Services;
+
+use App\Models\BpjsSetting;
+use App\Models\Employee;
+use App\Models\EmployeePayrollSetting;
+use App\Models\PayrollComponent;
+use App\Models\PayrollPeriod;
+use App\Models\PayrollSetting;
+use App\Models\PtkpSetting;
+use App\Models\TaxBracket;
+use App\Models\TaxRule;
+use App\Models\TaxEmployeeSetting;
+use App\Models\EmployeeSalaryComponent;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\Log;
+
+/**
+ * PayrollCalculatorService
+ *
+ * SEMUA formula bernilai konfigurasi dibaca dari TABEL:
+ *  - komponen gaji         : payroll_components + employee_salary_components
+ *  - tarif BPJS            : bpjs_settings (employee_rate/company_rate, max_limit)
+ *  - bracket PPh21/PKP     : tax_rules + tax_brackets
+ *  - PTKP per status       : ptkp_settings
+ *  - nilai tetap lain      : payroll_settings (biaya jabatan, cap, dsb)
+ *
+ * Formula yang boleh "tetap" hanya operasi aritmatika dasar (penjumlahan/persentase),
+ * nilainya selalu berasal dari config tabel di atas, bukan dari konstanta kode.
+ */
+class PayrollCalculatorService
+{
+    /** pembulatan ke 2 desimal untuk semua nominal rupiah */
+    private function money(float $value): float
+    {
+        return round($value, 2);
+    }
+
+    /**
+     * Ambil komponen salary aktif milik employee pada tanggal tertentu.
+     * Gabungkan master payroll_components dengan employee_salary_components.
+     */
+    private function resolveEmployeeComponents(Employee $employee, Carbon $date, ?float $basicSalary)
+    {
+        $rows = EmployeeSalaryComponent::where('employee_id', $employee->id)
+            ->where('is_active', true)
+            ->where('effective_from', '<=', $date->toDateString())
+            ->with('component')
+            ->get();
+
+        $out = [];
+        foreach ($rows as $row) {
+            $comp = $row->component;
+            if (!$comp || !$comp->is_active) {
+                continue;
+            }
+            if ($comp->effective_from && $comp->effective_from->gt($date)) {
+                continue;
+            }
+
+            $amount = $this->componentAmount($comp, $row, $basicSalary);
+            $out[] = [
+                'payroll_component_id' => $comp->id,
+                'label' => $comp->name,
+                'type' => $comp->type, // earning | deduction
+                'is_taxable' => (bool) $comp->is_taxable,
+                'amount' => $amount,
+            ];
+        }
+
+        return $out;
+    }
+
+    /**
+     * Hitung nominal sebuah komponen.
+     *  - fixed    : pakai amount (employee salary component atau master)
+     *  - percentage : percentage% dari gaji pokok
+     *  - formula  : evaluasi ekspresi sederhana (operasi tambah/kurang/kali/bagi persen terhadap Gajipokok)
+     * Nilai persentase & variabel selalu dari config tabel.
+     */
+    private function componentAmount(PayrollComponent $comp, $row, ?float $basicSalary): float
+    {
+        $basic = (float) $basicSalary;
+
+        // calculation_type and formula are now in $row (employee_salary_components)
+        $calcType = $row->calculation_type ?? 'fixed';
+
+        switch ($calcType) {
+            case 'percentage':
+                $rate = (float) $row->percentage;
+                return $this->money($basic * ($rate / 100));
+
+            case 'formula':
+                return $this->evalFormula($row->formula, $basic);
+
+            case 'fixed':
+            default:
+                // prioritas: amount per employee
+                return $this->money((float) $row->amount);
+        }
+    }
+
+    /**
+     * Evaluasi formula sederhana yang nilainya dibaca dari config.
+     * Variabel tersedia: {basic}/{basic_salary}; operator + - * / ( )
+     * Contoh: "basic * 0.5 + 100000" atau "0.2 * basic".
+     */
+    private function evalFormula(?string $formula, float $basic): float
+    {
+        if (!$formula) {
+            return 0;
+        }
+
+        $expr = str_ireplace(['{basic_salary}', '{basic}', 'basic', 'gajipokok'], (string) $basic, $formula);
+        $expr = trim($expr);
+
+        // Keamanan: hanya izinkan angka, operator, kurung, titik, spasi
+        if (!preg_match('#^[0-9+\-*/().\s]+$#', $expr)) {
+            Log::warning('Formula payroll tidak valid', ['formula' => $expr]);
+
+            return 0;
+        }
+
+        try {
+            $expr = preg_replace('#[^0-9+\-*/().]#', '', $expr);
+            $result = @eval('return ' . $expr . ';');
+
+            return $this->money((float) $result);
+        } catch (\Throwable $e) {
+            Log::warning('Gagal evaluasi formula payroll', ['formula' => $expr, 'error' => $e->getMessage()]);
+
+            return 0;
+        }
+    }
+
+    /**
+     * Gaji pokok (dasar) employee: dari employee_payroll_settings.basic_salary,
+     * fallback ke komponen 'Gaji Pokok' bila ada.
+     */
+    private function basicSalary(Employee $employee, Carbon $date): float
+    {
+        $global = PayrollComponent::where('code', 'gaji_pokok')->where('is_active', true)->first();
+        if ($global) {
+            $row = EmployeeSalaryComponent::where('employee_id', $employee->id)
+                ->where('payroll_component_id', $global->id)
+                ->where('is_active', true)
+                ->where('effective_from', '<=', $date->toDateString())
+                ->first();
+            if ($row) {
+                return (float) $row->amount;
+            }
+        }
+
+        return 0;
+    }
+
+    /**
+     * Hitung iuran BPJS bagian karyawan untuk periode.
+     * Dasar BPJS = gaji pokok (basic). Tarif dari bpjs_settings.
+     */
+    private function computeBpjs(Employee $employee, float $basic, Carbon $date): array
+    {
+        $settings = BpjsSetting::where('is_active', true)
+            ->where('effective_date', '<=', $date->toDateString())
+            ->get()
+            ->groupBy('bpjs_type')
+            ->map(fn ($rows) => $rows->sortByDesc('effective_date')->first());
+
+        $items = [];
+        $totalEmployee = 0;
+        $totalCompany = 0;
+
+        $dependentCount = \Illuminate\Support\Facades\DB::table('employee_families')
+            ->where('employee_id', $employee->id)
+            ->where('is_dependent', true)
+            ->count();
+
+        foreach ($settings as $type => $setting) {
+            $base = $basic;
+            if ($setting->max_limit && $base > $setting->max_limit) {
+                $base = (float) $setting->max_limit; // cap configurable
+            }
+            
+            $employeeRate = (float) $setting->employee_rate;
+            
+            // Logika BPJS Kesehatan Tambahan untuk Anggota Keluarga > 4 (Total maks 5 termasuk pegawai)
+            if (str_contains(strtolower($type), 'kesehatan') || str_contains(strtolower($setting->name ?? ''), 'kesehatan')) {
+                if ($dependentCount > 4) {
+                    $extraDependents = $dependentCount - 4;
+                    // Setiap anggota keluarga tambahan menambah potongan 1% bagi pegawai
+                    $employeeRate += ($extraDependents * 1.0); 
+                }
+            }
+
+            $employeeAmt = $this->money($base * ($employeeRate / 100));
+            $companyAmt = $this->money($base * ((float) $setting->company_rate / 100));
+
+            $items[] = [
+                'type' => $type,
+                'name' => $setting->name ?? ucfirst($type),
+                'employee_rate' => $employeeRate,
+                'company_rate' => (float) $setting->company_rate,
+                'base' => $base,
+                'employee_amount' => $employeeAmt,
+                'company_amount' => $companyAmt,
+                'is_tax_deductible' => (bool) $setting->is_tax_deductible,
+            ];
+            $totalEmployee += $employeeAmt;
+            $totalCompany += $companyAmt;
+        }
+
+        return [
+            'items' => $items,
+            'employee_total' => $this->money($totalEmployee),
+            'company_total' => $this->money($totalCompany),
+        ];
+    }
+
+    /**
+     * Hitung Pajak Global (flat rate berdasarkan komponen yang dipilih).
+     */
+    private function computeTax(Employee $employee, array $components, Carbon $date): array
+    {
+        $taxes = [];
+        $totalMonthlyTax = 0;
+
+        // Ambil semua rule pajak aktif
+        $rules = TaxRule::where('is_active', true)
+            ->where('effective_date', '<=', $date->toDateString())
+            ->with('components')
+            ->get();
+
+        foreach ($rules as $rule) {
+            $taxableBase = 0;
+            $componentIds = $rule->components->pluck('id')->toArray();
+            
+            foreach ($components as $comp) {
+                if ($comp['type'] === 'earning' && in_array($comp['payroll_component_id'], $componentIds)) {
+                    $taxableBase += $comp['amount'];
+                }
+            }
+
+            if ($taxableBase > 0 && $rule->rate > 0) {
+                $taxAmount = $this->money($taxableBase * ((float)$rule->rate / 100));
+                
+                $taxes[] = [
+                    'rule' => $rule->name,
+                    'rule_id' => $rule->id,
+                    'rate' => $rule->rate,
+                    'taxable_base' => $taxableBase,
+                    'monthly_tax' => $taxAmount,
+                ];
+
+                $totalMonthlyTax += $taxAmount;
+            }
+        }
+
+        return [
+            'total_monthly_tax' => $totalMonthlyTax,
+            'details' => $taxes
+        ];
+    }
+
+    /**
+     * Kalkulasi lengkap slip gaji untuk satu employee dalam satu periode.
+     * Mengembalikan array siap disimpan ke payroll_runs + payroll_details.
+     */
+    public function calculateForEmployee(Employee $employee, PayrollPeriod $period): array
+    {
+        $date = Carbon::parse($period->end_date ?: $period->start_date);
+        $basic = $this->basicSalary($employee, $date);
+
+        $components = $this->resolveEmployeeComponents($employee, $date, $basic);
+
+        // === RINGKAS KOMPONEN ===
+        $earnings = collect($components)->where('type', 'earning');
+        $deductions = collect($components)->where('type', 'deduction');
+
+        $totalAllowance = $this->money($earnings->sum('amount'));
+        $totalOtherDeduction = $this->money($deductions->sum('amount'));
+
+        // Taxable gross untuk PPh21 = jumlah earning taxable (config is_taxable)
+        $taxableEarnings = $this->money($earnings->where('is_taxable', true)->sum('amount'));
+
+        // === BPJS ===
+        $bpjs = $this->computeBpjs($employee, $basic, $date);
+        $bpjsEmployee = $bpjs['employee_total'];
+        $bpjsDeductibleForTax = $this->money(collect($bpjs['items'])
+            ->where('is_tax_deductible', true)->sum('employee_amount'));
+
+        // === PAJAK ===
+        $tax = $this->computeTax($employee, $components, $date);
+
+        // === OVERTIME (LEMBUR) ===
+        $attendances = \App\Models\Attendance::where('employee_id', $employee->id)
+            ->whereBetween('date', [$period->start_date, $period->end_date])
+            ->get();
+        
+        $totalOvertimeMinutes = (float) $attendances->sum('overtime_minutes');
+        // Default formula: 1/173 * Basic Salary per hour. (Overtime pay per minute = (1/173 * basic) / 60)
+        $overtimeRatePerHour = $basic > 0 ? (1 / 173) * $basic : 0;
+        $overtimeRatePerMinute = $overtimeRatePerHour / 60;
+        $totalOvertimePay = $this->money($totalOvertimeMinutes * $overtimeRatePerMinute);
+
+        // === DAILY RULES (ATURAN HARIAN - KETERLAMBATAN & ABSEN) ===
+        $totalLateMinutes = (float) $attendances->sum('late_minutes');
+        $totalAbsentDays = $attendances->where('status', 'absent')->count();
+
+        // Get deduction rates from PayrollSettings (or default 0)
+        $lateDeductionRate = (float) (PayrollSetting::where('key', 'late_deduction_per_minute')->value('value') ?? 0);
+        $absentDeductionRate = (float) (PayrollSetting::where('key', 'absent_deduction_per_day')->value('value') ?? 0);
+
+        $lateDeduction = $this->money($totalLateMinutes * $lateDeductionRate);
+        $absentDeduction = $this->money($totalAbsentDays * $absentDeductionRate);
+        $dailyRulesDeduction = $lateDeduction + $absentDeduction;
+
+        // === INCENTIVES (REWARDS) ===
+        $rewards = \App\Models\Reward::where('employee_id', $employee->id)
+            ->whereBetween('reward_date', [$period->start_date, $period->end_date])
+            ->get();
+        
+        $totalBonus = $this->money($rewards->where('type', 'bonus')->sum('amount'));
+        $totalPerformance = $this->money($rewards->where('type', 'performance')->sum('amount'));
+        $totalOtherReward = $this->money($rewards->whereIn('type', ['employee_of_month', 'appreciation', 'other'])->sum('amount'));
+        $totalCommission = 0;
+
+        $totalRewardAmount = $totalPerformance + $totalOtherReward;
+
+        // === TOTALS ===
+        $grossSalary = $totalAllowance + $totalOvertimePay + $totalBonus + $totalRewardAmount + $totalCommission;
+        $totalDeduction = $totalOtherDeduction + $bpjsEmployee + $tax['total_monthly_tax'] + $dailyRulesDeduction;
+        $netSalary = $this->money($grossSalary - $totalDeduction);
+
+        // === DETAIL (untuk payroll_details) ===
+        $details = [];
+        foreach ($components as $row) {
+            $details[] = [
+                'payroll_component_id' => $row['payroll_component_id'],
+                'label' => $row['label'],
+                'type' => $row['type'],
+                'amount' => $row['amount'],
+            ];
+        }
+        foreach ($bpjs['items'] as $item) {
+            $details[] = [
+                'payroll_component_id' => null,
+                'label' => 'BPJS ' . ($item['name']),
+                'type' => 'bpjs',
+                'amount' => $item['employee_amount'],
+            ];
+        }
+        foreach ($tax['details'] as $taxItem) {
+            $details[] = [
+                'payroll_component_id' => null,
+                'label' => 'Pajak ' . $taxItem['rule'] . ' (' . (float)$taxItem['rate'] . '%)',
+                'type' => 'tax',
+                'amount' => $taxItem['monthly_tax'],
+            ];
+        }
+        
+        if ($totalOvertimePay > 0) {
+            $details[] = [
+                'payroll_component_id' => null,
+                'label' => 'Uang Lembur (' . $totalOvertimeMinutes . ' menit)',
+                'type' => 'earning',
+                'amount' => $totalOvertimePay,
+            ];
+        }
+
+        if ($lateDeduction > 0) {
+            $details[] = [
+                'payroll_component_id' => null,
+                'label' => 'Potongan Keterlambatan (' . $totalLateMinutes . ' menit)',
+                'type' => 'deduction',
+                'amount' => $lateDeduction,
+            ];
+        }
+
+        if ($absentDeduction > 0) {
+            $details[] = [
+                'payroll_component_id' => null,
+                'label' => 'Potongan Mangkir/Absen (' . $totalAbsentDays . ' hari)',
+                'type' => 'deduction',
+                'amount' => $absentDeduction,
+            ];
+        }
+
+        $breakdown = [
+            'basic_salary' => $basic,
+            'components' => $components,
+            'overtime' => [
+                'minutes' => $totalOvertimeMinutes,
+                'amount' => $totalOvertimePay
+            ],
+            'daily_rules' => [
+                'late_minutes' => $totalLateMinutes,
+                'late_deduction' => $lateDeduction,
+                'absent_days' => $totalAbsentDays,
+                'absent_deduction' => $absentDeduction
+            ],
+            'rewards' => $rewards->map(fn($r) => ['title' => $r->title, 'amount' => $r->amount, 'type' => $r->type])->toArray(),
+            'bpjs' => $bpjs,
+            'tax' => $tax,
+            'net_salary' => $netSalary,
+        ];
+
+        return [
+            'payroll_period_id' => $period->id,
+            'employee_id' => $employee->id,
+            'gross_salary' => $grossSalary,
+            'total_allowance' => $totalAllowance,
+            'total_overtime' => $totalOvertimePay,
+            'total_bonus' => $totalBonus,
+            'total_commission' => $totalCommission,
+            'total_reward' => $totalRewardAmount,
+            'total_deduction' => $totalDeduction,
+            'total_tax' => $tax['total_monthly_tax'],
+            'total_bpjs' => $bpjsEmployee,
+            'net_salary' => $netSalary,
+            'breakdown' => $breakdown,
+            'status' => 'calculated',
+            '_details' => $details,
+        ];
+    }
+}
