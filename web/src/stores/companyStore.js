@@ -1,6 +1,20 @@
 import { defineStore } from 'pinia'
 import api from '../api'
 
+const resolveStorageUrl = (rawPath, fallback = null) => {
+  if (!rawPath) return fallback
+  const baseUrl = (import.meta.env.VITE_API_URL || 'http://127.0.0.1:8011/api/v1').replace('/api/v1', '')
+  if (rawPath.startsWith('http')) {
+    const storageIndex = rawPath.indexOf('/storage/')
+    if (storageIndex !== -1) {
+      return baseUrl + rawPath.substring(storageIndex)
+    }
+    return rawPath
+  }
+  const cleanPath = rawPath.startsWith('/') ? rawPath : '/' + rawPath
+  return baseUrl + (cleanPath.startsWith('/storage') ? '' : '/storage') + cleanPath
+}
+
 export const useCompanyStore = defineStore('company', {
   state: () => ({
     company: null,
@@ -25,39 +39,24 @@ export const useCompanyStore = defineStore('company', {
     }
   },
   getters: {
+    customLogoUrl: (state) => {
+      return resolveStorageUrl(state.company?.logo, null)
+    },
     logoUrl: (state) => {
-      const baseUrl = (import.meta.env.VITE_API_URL || 'http://127.0.0.1:8011/api/v1').replace('/api/v1', '')
-      const rawLogo = state.company?.logo
-      if (rawLogo) {
-        if (rawLogo.startsWith('http')) {
-          const storageIndex = rawLogo.indexOf('/storage/')
-          if (storageIndex !== -1) {
-            return baseUrl + rawLogo.substring(storageIndex)
-          }
-          return rawLogo
-        }
-        const cleanPath = rawLogo.startsWith('/') ? rawLogo : '/' + rawLogo
-        return baseUrl + (cleanPath.startsWith('/storage') ? '' : '/storage') + cleanPath
-      }
-      return '/assets/images/logo-dark.png'
+      return resolveStorageUrl(state.company?.logo, '/assets/images/logo-dark.png')
+    },
+    logoLightUrl: (state) => {
+      return resolveStorageUrl(state.company?.logo, '/assets/images/logo-light.png')
+    },
+    logoSmUrl: (state) => {
+      return resolveStorageUrl(state.company?.favicon, resolveStorageUrl(state.company?.logo, '/assets/images/logo-sm-dark.png'))
     },
     companyName: (state) => {
       return state.company?.name || 'BSB Village'
     },
     faviconUrl: (state) => {
-      const baseUrl = (import.meta.env.VITE_API_URL || 'http://127.0.0.1:8011/api/v1').replace('/api/v1', '')
-      if (state.company?.favicon) {
-        if (state.company.favicon.startsWith('http')) {
-          const storageIndex = state.company.favicon.indexOf('/storage/')
-          if (storageIndex !== -1) {
-            return baseUrl + state.company.favicon.substring(storageIndex)
-          }
-          return state.company.favicon
-        }
-        const cleanPath = state.company.favicon.startsWith('/') ? state.company.favicon : '/' + state.company.favicon
-        return baseUrl + (cleanPath.startsWith('/storage') ? '' : '/storage') + cleanPath
-      }
-      return '/assets/images/logo-sm-dark.png'
+      return resolveStorageUrl(state.company?.favicon, '/assets/images/logo-sm-dark.png')
     }
   }
 })
+

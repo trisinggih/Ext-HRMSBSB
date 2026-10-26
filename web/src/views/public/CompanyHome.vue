@@ -34,8 +34,8 @@
         <!-- Logo BSB Village -->
         <a href="#beranda" class="flex items-center gap-3">
           <img
-            src="/assets/images/logo-light.png"
-            alt="BSB Village Semarang"
+            :src="companyStore.logoLightUrl"
+            :alt="companyStore.companyName"
             style="height: 44px; max-height: 44px; width: auto; object-fit: contain;"
           />
         </a>
@@ -806,8 +806,8 @@
           <!-- Column 1: Brand & Bio -->
           <div class="lg:col-span-5 space-y-4">
             <img
-              src="/assets/images/logo-light.png"
-              alt="BSB Village Semarang"
+              :src="companyStore.logoLightUrl"
+              :alt="companyStore.companyName"
               style="height: 44px; max-height: 44px; width: auto; object-fit: contain;"
             />
             <p class="text-slate-400 text-xs leading-relaxed max-w-sm">
@@ -932,11 +932,19 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
+import { useCompanyStore } from '../../stores/companyStore'
 import '../../react-app/index.css'
 
+const companyStore = useCompanyStore()
 const mobileNavOpen = ref(false)
 const showVideoModal = ref(false)
+
+onMounted(() => {
+  if (!companyStore.company) {
+    companyStore.fetchCompany()
+  }
+})
 </script>
 
 <style scoped>

@@ -8,17 +8,17 @@
           <div class="navbar-brand-box d-flex align-items-center" style="padding: 0 1.5rem; width: auto; background: transparent;">
             <router-link to="/portal" class="logo logo-dark d-flex align-items-center">
               <span class="logo-lg">
-                <img :src="companyStore.logoUrl || '/assets/images/logo-dark.png'" alt="BSB Village" height="34" style="object-fit: contain; max-height: 38px;">
+                <img :src="companyStore.logoUrl" :alt="companyStore.companyName" height="34" style="object-fit: contain; max-height: 38px;">
               </span>
             </router-link>
             <router-link to="/portal" class="logo logo-light d-flex align-items-center">
               <span class="logo-lg">
-                <img src="/assets/images/logo-light.png" alt="BSB Village" height="34" style="object-fit: contain; max-height: 38px;">
+                <img :src="companyStore.logoLightUrl" :alt="companyStore.companyName" height="34" style="object-fit: contain; max-height: 38px;">
               </span>
             </router-link>
           </div>
           <div class="page-title-box align-self-center ms-3 d-none d-md-block">
-            <h4 class="page-title mb-0">BSB Village Portal</h4>
+            <h4 class="page-title mb-0">{{ companyStore.companyName }} Portal</h4>
           </div>
         </div>
 

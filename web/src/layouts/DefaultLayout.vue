@@ -9,18 +9,18 @@
           <div class="navbar-brand-box">
             <router-link to="/hrms" class="logo logo-dark">
               <span class="logo-sm">
-                <img src="/assets/images/logo-sm-dark.png" alt="BSB Village" height="28" style="object-fit: contain;">
+                <img :src="companyStore.logoSmUrl" :alt="companyStore.companyName" height="28" style="object-fit: contain;">
               </span>
               <span class="logo-lg">
-                <img :src="companyStore.logoUrl || '/assets/images/logo-dark.png'" alt="BSB Village" height="34" style="object-fit: contain; max-height: 38px;">
+                <img :src="companyStore.logoUrl" :alt="companyStore.companyName" height="34" style="object-fit: contain; max-height: 38px;">
               </span>
             </router-link>
             <router-link to="/hrms" class="logo logo-light">
               <span class="logo-sm">
-                <img src="/assets/images/logo-sm-dark.png" alt="BSB Village" height="28" style="object-fit: contain;">
+                <img :src="companyStore.logoSmUrl" :alt="companyStore.companyName" height="28" style="object-fit: contain;">
               </span>
               <span class="logo-lg">
-                <img src="/assets/images/logo-light.png" alt="BSB Village" height="34" style="object-fit: contain; max-height: 38px;">
+                <img :src="companyStore.logoLightUrl" :alt="companyStore.companyName" height="34" style="object-fit: contain; max-height: 38px;">
               </span>
             </router-link>
           </div>

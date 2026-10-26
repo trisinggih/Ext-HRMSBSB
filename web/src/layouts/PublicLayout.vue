@@ -26,7 +26,7 @@
           <div class="relative flex items-center justify-center">
             <div class="flex flex-col">
               <span class="font-headline-sm tracking-tight text-white transition-colors font-bold text-xl leading-none">
-                <img src="/assets/images/logo-light.png" alt="BSB Village" style="max-height: 38px; object-fit: contain;" />
+                <img :src="companyStore.logoLightUrl" :alt="brandName" style="max-height: 38px; object-fit: contain;" />
               </span>
             </div>
           </div>
@@ -84,9 +84,9 @@
             <div class="flex items-center gap-3">
               <div class="relative">
                 <img
-                  alt="BSB Village"
+                  :alt="brandName"
                   class="h-10 object-contain"
-                  src="/assets/images/logo-light.png"
+                  :src="companyStore.logoLightUrl"
                 />
               </div>
             </div>
